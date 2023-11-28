@@ -25,9 +25,7 @@
   </p>
 
   <div>
-    <% list.items do |item| %>
-    <p><%= item.name %></p>
-    <% end %>
+      <%= render partial: 'items/item', collection: list.items %>
   </div>
 
 </div>
