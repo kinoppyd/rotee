@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :set_list
   before_action :set_item, only: %i[ show edit update destroy ]
 
   # GET /items or /items.json
@@ -67,4 +68,8 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:name, :position, :list_id)
     end
+
+  def set_list
+    @list = List.find(params[:list_id])
+  end
 end

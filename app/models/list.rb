@@ -1,4 +1,6 @@
 class List < ApplicationRecord
+  has_many :items, -> { order(position: :asc) }, dependent: :destroy
+
   validates :title, presence: true, length: { maximum: 50 }
   validates :body, length: { maximum: 100 }
   validates :pointer, presence: true
