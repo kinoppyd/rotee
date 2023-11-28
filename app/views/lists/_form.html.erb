@@ -22,18 +22,8 @@
   </div>
 
   <div>
-    <%= form.label :pointer, style: "display: block" %>
-    <%= form.number_field :pointer %>
-  </div>
-
-  <div>
     <%= form.label :cycle, style: "display: block" %>
-    <%= form.number_field :cycle %>
-  </div>
-
-  <div>
-    <%= form.label :next_trigger_at, style: "display: block" %>
-    <%= form.datetime_field :next_trigger_at %>
+    <%= form.select :cycle, List.cycles.map { |k, _| [k, k] } %>
   </div>
 
   <div>
