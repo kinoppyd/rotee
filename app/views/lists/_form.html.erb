@@ -1,32 +1,41 @@
-<%= form_with(model: list) do |form| %>
-  <% if list.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
+<%= turbo_frame_tag list do %>
+  <%= form_with(model: list) do |form| %>
+    <% if list.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
 
-      <ul>
-        <% list.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% list.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-8">
+      <div class="flex items-end mb-2">
+        <div class="text-4xl text-slate-700 font-extrabold grow">
+          <%= form.text_field :title %>
+        </div>
+        <div class="flex items-center">
+          <div class="ml-2 text-slate-600">
+            <%= form.select :cycle, List.cycles.map { |k, _| [k, k] }, {}, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" %>
+          </div>
+          <div class="ml-2">
+            <%= button_tag type: "submit" do %>
+              <i class="fa-solid fa-check"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="w-auto text-md text-slate-500">
+        <%= form.text_area :body, class: "w-full bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2" %>
+      </div>
     </div>
+
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
-  </div>
-
-  <div>
-    <%= form.label :cycle, style: "display: block" %>
-    <%= form.select :cycle, List.cycles.map { |k, _| [k, k] } %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div id="list_items_<%= @list.id %>">
+    <%= render partial: 'items/item', collection: list.items %>
   </div>
 <% end %>

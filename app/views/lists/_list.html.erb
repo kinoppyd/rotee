@@ -1,31 +1,25 @@
-<div id="<%= dom_id list %>">
-  <p>
-    <strong>Title:</strong>
-    <%= list.title %>
-  </p>
-
-  <p>
-    <strong>Body:</strong>
-    <%= list.body %>
-  </p>
-
-  <p>
-    <strong>Pointer:</strong>
-    <%= list.pointer %>
-  </p>
-
-  <p>
-    <strong>Cycle:</strong>
-    <%= list.cycle %>
-  </p>
-
-  <p>
-    <strong>Next trigger at:</strong>
-    <%= list.next_trigger_at %>
-  </p>
-
-  <div id="list_items_<%= @list.id %>">
-      <%= render partial: 'items/item', collection: list.items %>
+<div id="<%= dom_id list %>" class="container">
+  <div class="mb-8">
+    <div class="flex items-end mb-2">
+      <h2 class="text-4xl text-slate-700 font-extrabold grow"><%= list.title %></h2>
+      <div class="flex">
+        <p class="ml-2 text-slate-600"><%= list.cycle %></p>
+        <div class="ml-2">
+          <%= link_to edit_list_path(@list) do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+        </div>
+        <div class="ml-2">
+          <%= button_to @list, method: :delete do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <h3 class="text-md text-slate-500"><%= list.body %></h3>
   </div>
 
+  <div id="list_items_<%= @list.id %>">
+    <%= render partial: 'items/item', collection: list.items %>
+  </div>
 </div>

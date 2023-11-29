@@ -1,9 +1,18 @@
 <%= turbo_frame_tag item do %>
   <%= form_with(model: [item.list, item]) do |form| %>
+    <div id="<%= dom_id item %>" class="my-2 flex w-auto h-8">
+      <div class="grow">
+        <%= form.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2" %>
+      </div>
+      <div class="ml-2">
+        <%= button_tag type: "submit" do %>
+          <i class="fa-solid fa-check"></i>
+        <% end %>
+      </div>
+    </div>
+
     <% if item.errors.any? %>
       <div style="color: red">
-        <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
         <ul>
           <% item.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -11,14 +20,5 @@
         </ul>
       </div>
     <% end %>
-
-    <div>
-      <%= form.label :name, style: "display: block" %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div>
-      <%= form.submit %>
-    </div>
   <% end %>
 <% end %>

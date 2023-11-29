@@ -1,6 +1,6 @@
 <h1>New item</h1>
 
-<%= turbo_frame_tag "new_list_item_#{@item.list.id}" do %>
+<%= turbo_frame_tag "new_list_#{@item.list.id}_item" do %>
   <%= render "form", list: @list, item: @item %>
 <% end %>
 

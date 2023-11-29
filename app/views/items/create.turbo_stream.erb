@@ -1,2 +1,2 @@
 <%= turbo_stream.append "list_items_#{@item.list.id}", @item %>
-<%= turbo_stream.update "new_list_item_#{@list.id}" %>
+<%= turbo_stream.update "new_list_#{@list.id}_item" %>
