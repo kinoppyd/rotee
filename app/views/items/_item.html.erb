@@ -1,6 +1,9 @@
-<div id="<%= dom_id item %>">
-  <p>
-    <strong>Name:</strong>
-    <%= item.name %>
-  </p>
-</div>
+<%= turbo_frame_tag item do %>
+  <div id="<%= dom_id item %>">
+    <p>
+      <strong>Name:</strong>
+      <%= item.name %>
+    </p>
+    <%= link_to 'edit', edit_list_item_path(item.list, item) %>
+  </div>
+<% end %>
