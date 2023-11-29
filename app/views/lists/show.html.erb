@@ -2,9 +2,10 @@
   <p style="color: green"><%= notice %></p>
 
   <%= render @list %>
+  <%= turbo_frame_tag "new_list_item_#{@list.id}" %>
 
   <div>
-    <%= link_to "Add a item", new_list_item_path(@list) %>
+    <%= link_to "Add a item", new_list_item_path(@list), data: { turbo_frame: "new_list_item_#{@list.id}" } %>
   </div>
 
   <div>

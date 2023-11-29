@@ -24,7 +24,7 @@
     <%= list.next_trigger_at %>
   </p>
 
-  <div>
+  <div id="list_items_<%= @list.id %>">
       <%= render partial: 'items/item', collection: list.items %>
   </div>
 
