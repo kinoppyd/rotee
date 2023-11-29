@@ -12,10 +12,29 @@ class List < ApplicationRecord
   enum :cycle, { daily: 0, weekly: 1 }
 
   before_validation :set_default_trigger
+  before_update :set_updated_trigger
 
   private
 
   def set_default_trigger
-    self.next_trigger_at ||= Time.current + (daily? ? 1.day : 1.week)
+    return if next_trigger_at_changed?
+
+    self.next_trigger_at ||= next_trigger
+  end
+
+  def set_updated_trigger
+    return if self.next_trigger_at_changed?
+
+    self.next_trigger_at = next_trigger
+  end
+
+  def next_trigger
+    today = Time.zone.today
+    if daily?
+      today = today.next_day.to_datetime
+    else
+      today = today.next_day until today.sunday?
+    end
+    today
   end
 end

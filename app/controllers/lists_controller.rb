@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
+  before_action :make_sure_cycle_trigger, only: %i[show]
 
   # GET /lists or /lists.json
   def index
@@ -66,5 +67,13 @@ class ListsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def list_params
       params.require(:list).permit(:title, :body, :pointer, :cycle, :next_trigger_at)
+    end
+
+    def make_sure_cycle_trigger
+      return if Time.current < @list.next_trigger_at
+
+      @list.pointer = @list.items.size <= @list.pointer + 1 ? 0 : @list.pointer + 1
+      @list.next_trigger_at = @list.next_trigger_at + (@list.daily? ? 24.hours : (7 * 24).hours)
+      @list.save
     end
 end
