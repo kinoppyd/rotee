@@ -62,3 +62,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "propshaft", "~> 0.8.0"
