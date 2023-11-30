@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_list
   before_action :set_item, only: %i[ show edit update destroy ]
+  before_action :set_list, only: %i[new create]
 
   # GET /items or /items.json
   def index
@@ -76,7 +76,7 @@ class ItemsController < ApplicationController
     end
 
   def set_list
-    @list = List.find(params[:list_id])
+    @list = params[:list_id] ? List.find(params[:list_id]) : @item.list
   end
 
   def reorder_lest_items(position)

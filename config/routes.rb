@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :dashboards
-  resources :lists do
-    resources :items
+  resources :dashboards do
+    resources :lists, only: %i[new create]
   end
+
+  resources :lists, only: %i[show edit update destroy] do
+    resources :items, only: %i[new create]
+  end
+
+  resources :items, only: %i[show edit update destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

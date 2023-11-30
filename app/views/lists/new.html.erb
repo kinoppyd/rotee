@@ -1,5 +1,7 @@
 <div class="container p-4">
   <h1>New list</h1>
 
-  <%= render 'form', list: @list %>
+  <%= turbo_frame_tag "new_dashboard_#{@dashboard.id}_list" do %>
+    <%= render 'form', list: @list, dashboard: @dashboard %>
+  <% end%>
  </div> 

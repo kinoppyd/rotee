@@ -1,7 +1,29 @@
-<div id="<%= dom_id dashboard %>">
-  <p>
-    <strong>Title:</strong>
-    <%= dashboard.title %>
-  </p>
+<%= turbo_frame_tag dashboard do %>
+  <div id="<%= dom_id dashboard %>" class="container m-4">
+  <div class="flex">
+    <h1 class="text-6xl font-bold grow text-slate-700"><%= dashboard.title %></h1>
+    <div class="flex items-center">
+      <%= link_to new_dashboard_list_path(@dashboard), data: { turbo_frame: "new_dashboard_#{@dashboard.id}_list" } do %>
+        <i class="fa-solid fa-plus fa-2xl"></i>
+      <% end %>
+      <%= link_to edit_dashboard_path(dashboard), class: "ml-4" do %>
+        <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+      <% end %>
+      <div class="ml-4">
+        <%= button_to dashboard, method: :delete do %>
+          <i class="fa-solid fa-trash fa-2xl"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-</div>
+    <div class="flex flex-wrap" id="<%= "dashboard_lists_#{dashboard.id}"%>">
+      <% dashboard.lists.each do |list| %>
+        <div class="w-96 m-4" id="list_<%= list.id %>_wrapper">
+          <%= render 'lists/list', list: list %>
+        </div>
+      <% end %>
+      <%= turbo_frame_tag "new_dashboard_#{dashboard.id}_list", class: "w-96 m-4" %>
+    </div>
+  </div>
+<% end %>

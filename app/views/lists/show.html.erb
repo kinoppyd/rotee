@@ -1,12 +1,5 @@
 <div class="container p-4">
   <%= turbo_frame_tag @list do %>
     <%= render @list %>
-    <%= turbo_frame_tag "new_list_#{@list.id}_item" %>
-
-    <div>
-      <%= link_to new_list_item_path(@list), data: { turbo_frame: "new_list_#{@list.id}_item" } do %>
-        <i class="fa-solid fa-plus"></i>
-      <% end %>
-    </div>
   <% end %>
 </div>

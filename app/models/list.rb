@@ -1,4 +1,5 @@
 class List < ApplicationRecord
+  belongs_to :dashboard
   has_many :items, -> { order(position: :asc) }, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 50 }
@@ -6,6 +7,7 @@ class List < ApplicationRecord
   validates :pointer, presence: true
   validates :cycle, presence: true
   validates :next_trigger_at, presence: true
+  validates :dashboard_id, presence: true
 
   attribute :pointer, :integer, default: 0
 

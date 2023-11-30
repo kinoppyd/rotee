@@ -1,0 +1,10 @@
+<%= turbo_stream.remove "new_dashboard_#{@list.dashboard.id}_list" %>
+
+<%= turbo_stream.append "dashboard_lists_#{@list.dashboard.id}" do %>
+  <div class="w-98 m-4" id="list_<%= @list.id %>_wrapper">
+<% end %>
+<%= turbo_stream.update "list_#{@list.id}_wrapper", @list %>
+
+<%= turbo_stream.append "dashboard_lists_#{@list.dashboard.id}" do %>
+  <%= turbo_frame_tag "new_dashboard_#{@list.dashboard.id}_list", class: "w-96 m-4" %>
+<% end %>
