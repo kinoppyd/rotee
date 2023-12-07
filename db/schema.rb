@@ -10,23 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_30_011121) do
-  create_table "dashboards", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2023_12_07_154139) do
+  create_table "dashboards", id: :string, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", id: :string, force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.integer "list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "list_id"
     t.index ["list_id"], name: "index_items_on_list_id"
   end
 
-  create_table "lists", force: :cascade do |t|
+  create_table "lists", id: :string, force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.integer "pointer"
@@ -34,10 +34,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_011121) do
     t.datetime "next_trigger_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "dashboard_id", null: false
+    t.string "dashboard_id"
     t.index ["dashboard_id"], name: "index_lists_on_dashboard_id"
   end
 
-  add_foreign_key "items", "lists"
-  add_foreign_key "lists", "dashboards"
 end

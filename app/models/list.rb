@@ -1,4 +1,6 @@
 class List < ApplicationRecord
+  include UuidPrimaryKey
+
   belongs_to :dashboard
   has_many :items, -> { order(position: :asc) }, dependent: :destroy
 

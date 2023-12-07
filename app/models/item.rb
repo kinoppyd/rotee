@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  include UuidPrimaryKey
+
   belongs_to :list
 
   validates :name, presence: true
