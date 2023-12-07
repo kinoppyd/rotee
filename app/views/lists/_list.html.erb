@@ -10,7 +10,7 @@
           <% end %>
         </div>
         <div class="ml-2">
-          <%= button_to list, method: :delete do %>
+          <%= button_to list, method: :delete, form: { data: { turbo_confirm: 'Delete this list?'} } do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
         </div>
