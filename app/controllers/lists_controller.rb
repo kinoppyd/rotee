@@ -3,11 +3,6 @@ class ListsController < ApplicationController
   before_action :set_dashboard, only: %i[new create]
   before_action :make_sure_cycle_trigger, only: %i[show]
 
-  # GET /lists or /lists.json
-  def index
-    @lists = List.all
-  end
-
   # GET /lists/1 or /lists/1.json
   def show
   end

@@ -1,11 +1,6 @@
 class DashboardsController < ApplicationController
   before_action :set_dashboard, only: %i[ show edit update destroy ]
 
-  # GET /dashboards or /dashboards.json
-  def index
-    @dashboards = Dashboard.all
-  end
-
   # GET /dashboards/1 or /dashboards/1.json
   def show
   end

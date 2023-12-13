@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :dashboards do
+  resources :dashboards, except: %i[index] do
     resources :lists, only: %i[new create]
   end
 
