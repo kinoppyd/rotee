@@ -2,7 +2,14 @@
 
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+  if [ -e /rails/tmp/rotee-credentials.json ]; then
+    export GOOGLE_APPLICATION_CREDENTIALS=/rails/tmp/rotee-credentials.json
+  fi
+
+  litestream restore -if-replica-exists -config litestream.yml ./storage/production.sqlite3
   ./bin/rails db:prepare
+  litestream replicate -config litestream.yml
+else
+  exec "${@}"
 fi
 
-exec "${@}"

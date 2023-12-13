@@ -1,0 +1,5 @@
+exec: bin/rails server
+dbs:
+  - path: ./storage/production.sqlite3
+    replicas:
+      - url: gcs://rotee-litestream/production.sqlite3
