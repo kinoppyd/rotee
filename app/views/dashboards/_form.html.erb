@@ -12,7 +12,7 @@
       </div>
     <% end %>
 
-    <%= form_with(model: dashboard) do |form| %>
+    <%= form_with(model: dashboard, data: { turbo: false }) do |form| %>
   
       <div class="flex">
         <div class="text-6xl font-bold grow text-slate-700">

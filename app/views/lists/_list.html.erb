@@ -1,34 +1,36 @@
-<div id="<%= dom_id list %>" class="container w-96">
-  <div class="mb-8">
-    <div class="flex items-end mb-2">
-      <h2 class="text-4xl text-slate-700 font-extrabold grow"><%= list.title %></h2>
-      <div class="flex">
-        <p class="ml-2 text-slate-600"><%= list.cycle %></p>
-        <div class="ml-2">
-          <%= link_to edit_list_path(list) do %>
-            <i class="fa-solid fa-pen-to-square"></i>
-          <% end %>
-        </div>
-        <div class="ml-2">
-          <%= button_to list, method: :delete, form: { data: { turbo_confirm: 'Delete this list?'} } do %>
-            <i class="fa-solid fa-trash"></i>
-          <% end %>
+<%= turbo_frame_tag list do %>
+  <div id="<%= dom_id list %>" class="container w-96">
+    <div class="mb-8">
+      <div class="flex items-end mb-2">
+        <h2 class="text-4xl text-slate-700 font-extrabold grow"><%= list.title %></h2>
+        <div class="flex">
+          <p class="ml-2 text-slate-600"><%= list.cycle %></p>
+          <div class="ml-2">
+            <%= link_to edit_list_path(list) do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+          </div>
+          <div class="ml-2">
+            <%= button_to list, method: :delete, form: { data: { turbo_confirm: 'Delete this list?'} } do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </div>
         </div>
       </div>
+      <h3 class="text-md text-slate-500"><%= list.body %></h3>
     </div>
-    <h3 class="text-md text-slate-500"><%= list.body %></h3>
+
+    <div id="list_items_<%= list.id %>">
+      <%= render partial: 'items/item', collection: list.items %>
+    </div>
+
+
+    <%= turbo_frame_tag "new_list_#{list.id}_item" %>
+
+    <div>
+      <%= link_to new_list_item_path(list), data: { turbo_frame: "new_list_#{list.id}_item" } do %>
+        <i class="fa-solid fa-plus"></i>
+      <% end %>
+    </div>
   </div>
-
-  <div id="list_items_<%= list.id %>">
-    <%= render partial: 'items/item', collection: list.items %>
-  </div>
-
-
-  <%= turbo_frame_tag "new_list_#{list.id}_item" %>
-
-  <div>
-    <%= link_to new_list_item_path(list), data: { turbo_frame: "new_list_#{list.id}_item" } do %>
-      <i class="fa-solid fa-plus"></i>
-    <% end %>
-  </div>
-</div>
+<% end %>
