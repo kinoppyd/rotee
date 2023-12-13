@@ -11,7 +11,7 @@
             <% end %>
           </div>
           <div class="ml-2">
-            <%= button_to list, method: :delete, form: { data: { turbo_confirm: 'Delete this list?'} } do %>
+            <%= button_to list, method: :delete, form: { data: { turbo_confirm: "Delete list #{list.title}?"} } do %>
               <i class="fa-solid fa-trash"></i>
             <% end %>
           </div>
@@ -27,10 +27,12 @@
 
     <%= turbo_frame_tag "new_list_#{list.id}_item" %>
 
-    <div>
-      <%= link_to new_list_item_path(list), data: { turbo_frame: "new_list_#{list.id}_item" } do %>
-        <i class="fa-solid fa-plus"></i>
-      <% end %>
+    <div class="w-full mt-2 ml-2">
+      <div>
+        <%= link_to new_list_item_path(list), data: { turbo_frame: "new_list_#{list.id}_item" } do %>
+          <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
