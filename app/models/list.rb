@@ -18,6 +18,20 @@ class List < ApplicationRecord
   before_validation :set_default_trigger
   before_update :set_updated_trigger
 
+  def max_pointer
+    items.size
+  end
+
+  def tick!(current = Time.current)
+    return if current < next_trigger_at
+
+    pointer_candidate = next_pointer(current)
+    self.pointer = max_pointer <= pointer_candidate ? pointer_candidate - max_pointer : pointer_candidate
+
+    self.next_trigger_at += (daily? ? 24.hours : (7 * 24).hours) while next_trigger_at >= current
+    save!
+  end
+
   private
 
   def set_default_trigger
@@ -40,5 +54,19 @@ class List < ApplicationRecord
       today = today.next_day until today.sunday?
     end
     today
+  end
+
+  def next_pointer(current)
+    return 0 if max_pointer.zero?
+
+    pointer + if current - next_trigger_at > threshold
+                ((current - next_trigger_at) / threshold).to_i % items.size
+              else
+                1
+              end
+  end
+
+  def threshold
+    @threshold ||= daily? ? 24 * 60 * 60 : 24 * 60 * 60 * 7
   end
 end
