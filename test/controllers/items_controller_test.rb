@@ -2,25 +2,21 @@ require "test_helper"
 
 class ItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @list = lists(:one)
     @item = items(:one)
   end
 
-  test "should get index" do
-    get items_url
-    assert_response :success
-  end
-
   test "should get new" do
-    get new_item_url
+    get new_list_item_url(@list)
     assert_response :success
   end
 
   test "should create item" do
     assert_difference("Item.count") do
-      post items_url, params: { item: { list_id: @item.list_id, name: @item.name, position: @item.position } }
+      post list_items_url(@list), params: { item: { list_id: @item.list_id, name: @item.name, position: @item.position } }
     end
 
-    assert_redirected_to item_url(Item.last)
+    assert_redirected_to item_url(Item.order(created_at: :desc).first)
   end
 
   test "should show item" do
@@ -43,6 +39,6 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
       delete item_url(@item)
     end
 
-    assert_redirected_to items_url
+    assert_redirected_to list_url(@item.list)
   end
 end

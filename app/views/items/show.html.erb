@@ -3,7 +3,7 @@
 <%= render @item %>
 
 <div>
-  <%= link_to "Edit this item", edit_list_item_path(@item.list, @item) %> |
+  <%= link_to "Edit this item", edit_item_path(@item) %> |
 
-  <%= button_to "Destroy this item", list_item_path(@item.list, @item), method: :delete %>
+  <%= button_to "Destroy this item", item_path(@item), method: :delete %>
 </div>
