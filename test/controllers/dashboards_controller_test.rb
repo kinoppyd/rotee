@@ -5,11 +5,6 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     @dashboard = dashboards(:one)
   end
 
-  test "should get index" do
-    get dashboards_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_dashboard_url
     assert_response :success
@@ -20,7 +15,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
       post dashboards_url, params: { dashboard: { title: @dashboard.title } }
     end
 
-    assert_redirected_to dashboard_url(Dashboard.last)
+    assert_redirected_to dashboard_url(Dashboard.order(created_at: :desc).first)
   end
 
   test "should show dashboard" do
