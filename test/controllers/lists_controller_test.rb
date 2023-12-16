@@ -2,25 +2,21 @@ require "test_helper"
 
 class ListsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @dashboard = dashboards(:one)
     @list = lists(:one)
   end
 
-  test "should get index" do
-    get lists_url
-    assert_response :success
-  end
-
   test "should get new" do
-    get new_list_url
+    get new_dashboard_list_url(@dashboard)
     assert_response :success
   end
 
   test "should create list" do
     assert_difference("List.count") do
-      post lists_url, params: { list: { body: @list.body, cycle: @list.cycle, next_trigger_at: @list.next_trigger_at, pointer: @list.pointer, title: @list.title } }
+      post dashboard_lists_url(@list.dashboard), params: { list: { body: @list.body, cycle: @list.cycle, next_trigger_at: @list.next_trigger_at, pointer: @list.pointer, title: @list.title } }
     end
 
-    assert_redirected_to list_url(List.last)
+    assert_redirected_to list_url(List.order(created_at: :desc).first)
   end
 
   test "should show list" do
@@ -43,6 +39,6 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
       delete list_url(@list)
     end
 
-    assert_redirected_to lists_url
+    assert_redirected_to dashboard_url(@list.dashboard)
   end
 end
