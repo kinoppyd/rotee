@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
 
   # GET /dashboards/1 or /dashboards/1.json
   def show
-    @dashboard.lists.map { make_sure_cycle_trigger(_1) }
+    @dashboard.lists.each(&:tick!)
   end
 
   # GET /dashboards/new
@@ -62,18 +62,5 @@ class DashboardsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def dashboard_params
       params.require(:dashboard).permit(:title)
-    end
-
-    def make_sure_cycle_trigger(list)
-      current = Time.current
-      return if current < list.next_trigger_at
-
-      threshold = list.daily? ? 24 * 60 * 60 : 24 * 60 * 60 * 7
-      forward_pointer_count = ((current - list.next_trigger_at) / threshold).to_i % list.items.size
-      next_pointer = list.pointer + forward_pointer_count
-      list.pointer = list.items.size <= next_pointer ? next_pointer - list.items.size : next_pointer
-
-      list.next_trigger_at = list.next_trigger_at + (list.daily? ? 24.hours : (7 * 24).hours) while list.next_trigger_at >= current
-      list.save
     end
 end
