@@ -20,7 +20,7 @@
     <div class="flex flex-wrap" id="<%= "dashboard_lists_#{dashboard.id}"%>">
       <% dashboard.lists.each do |list| %>
         <div class="m-4 p-4 border rounded-md border-slate-200" id="list_<%= list.id %>_wrapper">
-          <%= render 'lists/list', list: list %>
+          <%= turbo_frame_tag list, src: list, loading: :lazy %>
         </div>
       <% end %>
       <%= turbo_frame_tag "new_dashboard_#{dashboard.id}_list", class: "w-96 m-4 p-4" %>
