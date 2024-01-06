@@ -3,6 +3,7 @@ class List < ApplicationRecord
 
   belongs_to :dashboard
   has_many :items, -> { order(position: :asc) }, dependent: :destroy
+  has_one :timer, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 50 }
   validates :body, length: { maximum: 100 }

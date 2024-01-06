@@ -9,6 +9,7 @@ class Timer
     FRI = 0b0100000
     SAT = 0b1000000
 
+    NONE = 0b0
     ALL_DAYS = MON | TUE | WED | THU | FRI | SUN | SAT
 
     class InvalidStateError < StandardError; end
