@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  last_ticked_at: 2024-01-06 17:02:34
+  next_tick_at: 2024-01-06 17:02:34
+  trigger_day: 1
+  list: one
+
+two:
+  last_ticked_at: 2024-01-06 17:02:34
+  next_tick_at: 2024-01-06 17:02:34
+  trigger_day: 1
+  list: two

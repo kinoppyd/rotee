@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_07_154139) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_080234) do
+  create_table "_litestream_lock", id: false, force: :cascade do |t|
+    t.integer "id"
+  end
+
+  create_table "_litestream_seq", force: :cascade do |t|
+    t.integer "seq"
+  end
+
   create_table "dashboards", id: :string, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -38,4 +46,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_154139) do
     t.index ["dashboard_id"], name: "index_lists_on_dashboard_id"
   end
 
+  create_table "timers", id: :string, force: :cascade do |t|
+    t.datetime "last_ticked_at"
+    t.datetime "next_tick_at"
+    t.integer "trigger_day", null: false
+    t.string "list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_timers_on_list_id"
+  end
+
+  add_foreign_key "timers", "lists"
 end
