@@ -26,13 +26,13 @@
       </div>
     <% end %>
 
-    <div class="flex flex-wrap" id="<%= "dashboard_lists_#{dashboard.id}"%>">
+    <div class="flex flex-wrap" id="<%= dashboard_lists_id(dashboard) %>">
       <% dashboard.lists.each do |list| %>
-        <div class="w-96 m-4" id="list_<%= list.id %>_wrapper">
+        <div class="w-96 m-4" id="<%= list_wrapper_id(list) %>">
           <%= render 'lists/list', list: list %>
         </div>
       <% end %>
-      <%= turbo_frame_tag "new_dashboard_#{dashboard.id}_list", class: "w-96 m-4" %>
+      <%= turbo_frame_tag new_list_id(dashboard), class: "w-96 m-4" %>
     </div>
   </div>
 <% end %>

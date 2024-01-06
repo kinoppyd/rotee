@@ -35,7 +35,7 @@
 
   <% end %>
 
-  <div id="list_items_<%= @list.id %>">
+  <div id="<%= list_items_id(@list) %>">
     <%= render partial: 'items/item', collection: list.items %>
   </div>
 <% end %>

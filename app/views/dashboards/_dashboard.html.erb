@@ -3,7 +3,7 @@
   <div class="p-6 flex h-24 items-center bg-slate-900">
     <h1 class="pl-2 text-6xl font-bold grow text-slate-300"><%= dashboard.title %></h1>
     <div class="flex items-center">
-      <%= link_to new_dashboard_list_path(@dashboard), data: { turbo_frame: "new_dashboard_#{@dashboard.id}_list" } do %>
+      <%= link_to new_dashboard_list_path(@dashboard), data: { turbo_frame: new_list_id(@dashboard) } do %>
         <i class="fa-solid fa-plus fa-2xl" style="color: rgb(203 213 225);"></i>
       <% end %>
       <%= link_to edit_dashboard_path(dashboard), class: "ml-6" do %>
@@ -17,13 +17,13 @@
     </div>
   </div>
 
-    <div class="flex flex-wrap" id="<%= "dashboard_lists_#{dashboard.id}"%>">
+    <div class="flex flex-wrap" id="<%= dashboard_lists_id(dashboard) %>">
       <% dashboard.lists.each do |list| %>
-        <div class="m-4 p-4 border rounded-md border-slate-200" id="list_<%= list.id %>_wrapper">
+        <div class="m-4 p-4 border rounded-md border-slate-200" id="<%= list_wrapper_id(list) %>">
           <%= turbo_frame_tag list, src: list, loading: :lazy %>
         </div>
       <% end %>
-      <%= turbo_frame_tag "new_dashboard_#{dashboard.id}_list", class: "w-96 m-4 p-4" %>
+      <%= turbo_frame_tag new_list_id(dashboard), class: "w-96 m-4 p-4" %>
     </div>
   </div>
 <% end %>

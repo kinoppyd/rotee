@@ -20,16 +20,16 @@
       <h3 class="text-md text-slate-500"><%= list.body %></h3>
     </div>
 
-    <div id="list_items_<%= list.id %>">
+    <div id="<%= list_items_id(list) %>">
       <%= render partial: 'items/item', collection: list.items %>
     </div>
 
 
-    <%= turbo_frame_tag "new_list_#{list.id}_item" %>
+    <%= turbo_frame_tag new_item_id(list) %>
 
     <div class="w-full mt-2 ml-2">
       <div>
-        <%= link_to new_list_item_path(list), data: { turbo_frame: "new_list_#{list.id}_item" } do %>
+        <%= link_to new_list_item_path(list), data: { turbo_frame: new_item_id(list) } do %>
           <i class="fa-solid fa-plus"></i>
         <% end %>
       </div>
