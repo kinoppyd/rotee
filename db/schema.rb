@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_06_080234) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_020900) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -38,8 +38,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_080234) do
     t.string "title"
     t.text "body"
     t.integer "pointer"
-    t.integer "cycle"
-    t.datetime "next_trigger_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "dashboard_id"
