@@ -4,14 +4,10 @@ one:
   title: MyString
   body: MyText
   pointer: 1
-  cycle: 1
-  next_trigger_at: 2023-11-28 21:30:44
   dashboard: one
 
 two:
   title: MyString
   body: MyText
   pointer: 1
-  cycle: 1
-  next_trigger_at: 2023-11-28 21:30:44
   dashboard: one
