@@ -10,6 +10,7 @@ class ListsController < ApplicationController
   # GET /lists/new
   def new
     @list = @dashboard.lists.build
+    @list.build_timer(trigger_day: [])
   end
 
   # GET /lists/1/edit
@@ -20,6 +21,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     @list.dashboard_id = params[:dashboard_id]
+    @list.build_timer(trigger_day: trigger_day_param)
 
     respond_to do |format|
       if @list.save
@@ -35,8 +37,9 @@ class ListsController < ApplicationController
 
   # PATCH/PUT /lists/1 or /lists/1.json
   def update
+    @list.timer.trigger_day = trigger_day_param
     respond_to do |format|
-      if @list.update(list_params)
+      if @list.update(list_params) && @list.timer.save
         format.html { redirect_to list_url(@list), notice: "List was successfully updated." }
         format.json { render :show, status: :ok, location: @list }
       else
@@ -65,10 +68,18 @@ class ListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def list_params
-      params.require(:list).permit(:title, :body, :pointer, :cycle, :next_trigger_at)
+      params.require(:list).permit(:title, :body)
+    end
+
+    def timer_params
+      params.require(:timer).permit(trigger_day: {})
     end
 
   def set_dashboard
     @dashboard = params[:dashboard_id] ? Dashboard.find(params[:dashboard_id]) : @list.dashboard.id
+  end
+
+  def trigger_day_param
+    timer_params[:trigger_day].to_h.select { |_, v| v == "1" }.map { |k, _| k.to_sym }
   end
 end

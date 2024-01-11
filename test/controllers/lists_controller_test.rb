@@ -13,7 +13,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create list" do
     assert_difference("List.count") do
-      post dashboard_lists_url(@list.dashboard), params: { list: { body: @list.body, cycle: @list.cycle, next_trigger_at: @list.next_trigger_at, pointer: @list.pointer, title: @list.title } }
+      post dashboard_lists_url(@list.dashboard), params: { list: { body: @list.body, title: @list.title }, timer: { trigger_day: { "sun" => 0 } } }
     end
 
     assert_redirected_to list_url(List.order(created_at: :desc).first)
@@ -30,7 +30,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update list" do
-    patch list_url(@list), params: { list: { body: @list.body, cycle: @list.cycle, next_trigger_at: @list.next_trigger_at, pointer: @list.pointer, title: @list.title } }
+    patch list_url(@list), params: { list: { body: @list.body, title: @list.title }, timer: { trigger_day: { "sun" => 0 } } }
     assert_redirected_to list_url(@list)
   end
 

@@ -12,11 +12,22 @@ class List < ApplicationRecord
 
   attribute :pointer, :integer, default: 0
 
+  delegate :sunday?, :monday?, :tuesday?, :wednesday?, :thursday?, :friday?, :saturday?, :none?, :trigger_day, to: :timer
+
+  alias sun sunday?
+  alias mon monday?
+  alias tue tuesday?
+  alias wed wednesday?
+  alias thu thursday?
+  alias fri friday?
+  alias sat saturday?
+
   def max_pointer
     items.size
   end
 
   def tick!(current = Time.current)
+    return if timer.nil?
     return if current < timer.next_tick_at
 
     pointer_candidate = timer.tick!

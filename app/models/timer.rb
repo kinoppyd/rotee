@@ -9,6 +9,8 @@ class Timer < ApplicationRecord
     less_than_or_equal_to: DayOfWeekInteger::ALL_DAYS
   }
 
+  delegate :sunday?, :monday?, :tuesday?, :wednesday?, :thursday?, :friday?, :saturday?, :none?, to: :trigger_day
+
   def trigger_day
     DayOfWeekInteger.new(read_attribute(:trigger_day))
   end

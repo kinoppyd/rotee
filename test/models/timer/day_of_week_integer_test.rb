@@ -324,4 +324,9 @@ class DayOfWeekIntegerTest < ActiveSupport::TestCase
       obj.saturday?
     end
   end
+
+  test 'to_syms returns available days' do
+    obj = Timer::DayOfWeekInteger.from_symbols(:sun, :mon)
+    assert_equal [:sun, :mon], obj.to_syms
+  end
 end

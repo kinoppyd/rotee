@@ -18,15 +18,22 @@
           <%= form.text_field :title, placeholder: "New list", class: 'w-64' %>
         </div>
         <div class="flex items-center">
-          <div class="ml-2 text-slate-600">
-            <%= form.select :cycle, List.cycles.map { |k, _| [k, k] }, {}, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" %>
-          </div>
           <div class="ml-2">
             <%= button_tag type: "submit" do %>
               <i class="fa-solid fa-check"></i>
             <% end %>
           </div>
         </div>
+      </div>
+      <div class="w-auto text-md text-slate-500 flex">
+        <%= fields_for "timer[trigger_day]", list do |f| %>
+          <% %i[sun mon tue wed thu fri sat].each do |d| %>
+          <div class="mr-2">
+            <%= f.check_box d, checked: list.public_send(d) %>
+            <%= f.label d, d.to_s.upcase %>
+          </div>
+          <% end %>
+        <% end %>
       </div>
       <div class="w-auto text-md text-slate-500">
         <%= form.text_area :body, placeholder: "Describe about this list.", class: "w-full bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2" %>

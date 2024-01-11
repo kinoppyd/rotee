@@ -65,7 +65,7 @@ class TimerNextTickAtTest < ActiveSupport::TestCase
     travel_to Date.new(2023, 12, 31) do
       dashboard = Dashboard.new(title: 'test')
       dashboard.save!
-      list = dashboard.lists.build(title: 'test', pointer: 0, cycle: :daily, next_trigger_at: Time.current)
+      list = dashboard.lists.build(title: 'test', pointer: 0)
       timer = list.build_timer(trigger_day: %i[sun mon tue wed thu fri sat])
       list.save!
 
@@ -81,7 +81,7 @@ class TimerTickReturnsTest < ActiveSupport::TestCase
     travel_to Date.new(2023, 12, 31) do
       dashboard = Dashboard.new(title: 'test')
       dashboard.save!
-      list = dashboard.lists.build(title: 'test', pointer: 0, cycle: :daily, next_trigger_at: Time.current)
+      list = dashboard.lists.build(title: 'test', pointer: 0)
       @timer = list.build_timer(trigger_day: %i[sun mon tue wed thu fri sat])
       list.save!
     end
@@ -177,7 +177,7 @@ class TimerTickChangesAtrributesTest < ActiveSupport::TestCase
     travel_to Date.new(2023, 12, 31) do
       dashboard = Dashboard.new(title: 'test')
       dashboard.save!
-      list = dashboard.lists.build(title: 'test', pointer: 0, cycle: :daily, next_trigger_at: Time.current)
+      list = dashboard.lists.build(title: 'test', pointer: 0)
       @timer = list.build_timer(trigger_day: %i[sun mon tue wed thu fri sat])
       list.save!
     end

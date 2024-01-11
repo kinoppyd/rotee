@@ -54,6 +54,20 @@ class Timer
       @stat
     end
 
+    def to_syms
+      raise InvalidStateError unless sanity?
+
+      [
+        sunday? ? :sun : nil,
+        monday? ? :mon : nil,
+        tuesday? ? :tue : nil,
+        wednesday? ? :wed : nil,
+        thursday? ? :thu : nil,
+        friday? ? :fri : nil,
+        saturday? ? :sat : nil,
+      ].compact
+    end
+
     def sunday? = available?(SUN)
     def monday? = available?(MON)
     def tuesday? = available?(TUE)
