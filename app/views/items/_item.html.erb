@@ -1,13 +1,13 @@
 <%= turbo_frame_tag item do %>
-  <div id="<%= dom_id item %>" class="flex items-center p-2 w-auto h-10 rounded <%= item.position == item.list.pointer ? "bg-slate-600" : "" %>">
+  <div id="<%= dom_id item %>" class="group/item flex items-center p-2 w-auto h-10 rounded <%= item.position == item.list.pointer ? "bg-slate-600" : "" %>">
     <p class="text-lg <%= item.position == item.list.pointer ? "text-slate-300" : "text-slate-600" %> grow">
       <%= item.name %></p>
-    <div class="ml-2">
+    <div class="ml-2 invisible group-hover/item:visible">
       <%= link_to edit_item_path(item) do %>
         <i class="fa-solid fa-pen-to-square"></i>
       <% end %>
     </div>
-    <div class="ml-2">
+    <div class="ml-2 invisible group-hover/item:visible">
       <%= button_to item, method: :delete do %>
         <i class="fa-solid fa-trash"></i>
       <% end %>
