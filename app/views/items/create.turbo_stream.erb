@@ -1,2 +1,2 @@
 <%= turbo_stream.append list_items_id(@item.list), @item %>
-<%= turbo_stream.update new_item_id(@list) %>
+<%= turbo_stream.update new_item_id(@list), partial: 'items/form', locals: { list: @list, item: @new_item } %>

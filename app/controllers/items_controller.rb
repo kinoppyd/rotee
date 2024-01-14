@@ -21,6 +21,8 @@ class ItemsController < ApplicationController
     @item.list_id = params["list_id"]
     @item.position = @item.list.items.size
 
+    @new_item = @list.items.build
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
