@@ -1,17 +1,19 @@
 <%= turbo_frame_tag item, data: { controller: "item" } do %>
   <%= form_with(model: [list, item]) do |form| %>
-    <div id="<%= dom_id item %>" class="my-2 p-1 flex w-auto h-10">
-      <div class="grow">
-        <%= form.text_field :name, data: { item_target: :name }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2" %>
+    <div id="<%= dom_id item %>" class="my-2 p-1 flex items-center w-auto h-10">
+      <div class="grow h-full">
+        <%= form.text_field :name, data: { item_target: :name }, class: "h-full w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2" %>
       </div>
       <div class="ml-2">
         <%= button_tag type: "submit" do %>
           <i class="fa-solid fa-check"></i>
         <% end %>
       </div>
-      <div class="ml-2">
-        <i class="fa-solid fa-delete-left" role="button" data-action="click->item#removeNewForm"></i>
-      </div>
+      <% if action_name == 'new' || action_name == 'create' %>
+        <div class="ml-2">
+          <i class="fa-solid fa-delete-left" role="button" data-action="click->item#removeNewForm"></i>
+        </div>
+      <% end %>
     </div>
 
     <% if item.errors.any? %>
