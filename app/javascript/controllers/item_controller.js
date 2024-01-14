@@ -8,4 +8,8 @@ export default class extends Controller {
     const elm = this.nameTarget;
     elm.focus();
   }
+
+  removeNewForm() {
+    this.element.remove()
+  }
 }
