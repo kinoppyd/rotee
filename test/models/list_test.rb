@@ -30,6 +30,21 @@ class ListTest < ActiveSupport::TestCase
     end
   end
 
+  test "tick moves pointer forward 1 then pointer 1 back to 0 when over trigger_at 1 day" do
+    list = List.create!(title: 'test', pointer: 1, dashboard: @dashboard)
+    list.items.create!(name: 'item1', position: 0)
+    list.items.create!(name: 'item2', position: 1)
+
+    travel_to Date.new(2023, 12, 31) do
+      list.build_timer(trigger_day: Timer::DayOfWeekInteger::ALL_DAYS).save!
+    end
+
+    travel_to Date.new(2024, 1, 1) do
+      list.tick!
+      assert_equal 0, list.pointer
+    end
+  end
+
   test "tick moves pointer forward 2 when over trigger_at 2 days" do
     list = List.create!(title: 'test', pointer: 0, dashboard: @dashboard)
     list.items.create!(name: 'item1', position: 0)
