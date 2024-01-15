@@ -80,6 +80,7 @@ class ListTest < ActiveSupport::TestCase
     list = List.create!(title: 'test', pointer: 0, dashboard: @dashboard)
     list.items.create!(name: 'item1', position: 0)
     list.items.create!(name: 'item2', position: 1)
+    list.items.create!(name: 'item3', position: 2)
 
     travel_to Date.new(2023, 12, 31) do
       list.build_timer(trigger_day: Timer::DayOfWeekInteger::ALL_DAYS).save!
@@ -87,6 +88,7 @@ class ListTest < ActiveSupport::TestCase
 
     travel_to Date.new(2024, 1, 1) do
       list.tick!
+      list.reload
       list.tick!
       assert_equal 1, list.pointer
     end

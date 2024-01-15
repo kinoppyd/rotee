@@ -35,6 +35,7 @@ class Timer < ApplicationRecord
     self.last_ticked_at = now if tick_count.positive?
     self.next_tick_at = calc_next_tick
 
+    save!
     tick_count
   end
 

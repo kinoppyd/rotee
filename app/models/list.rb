@@ -30,10 +30,12 @@ class List < ApplicationRecord
     return if timer.nil?
     return if current < timer.next_tick_at
 
-    forward_count = timer.tick!
-    pointer_candidate = pointer + forward_count
-    self.pointer = max_pointer <= pointer_candidate ? pointer_candidate - max_pointer : pointer_candidate
+    transaction do
+      forward_count = timer.tick!
+      pointer_candidate = pointer + forward_count
+      self.pointer = max_pointer <= pointer_candidate ? pointer_candidate - max_pointer : pointer_candidate
 
-    save!
+      save!
+    end
   end
 end
