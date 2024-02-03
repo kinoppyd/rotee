@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+  before_action :set_embed, only: :show, if: -> { request.path.start_with?('/embed') }
   before_action :set_list, only: %i[ show edit update destroy ]
   before_action :set_dashboard, only: %i[new create]
 
@@ -63,7 +64,11 @@ class ListsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
-      @list = List.find(params[:id])
+      @list = if @embed
+                @embed.list
+              else
+                List.find(params[:id])
+              end
     end
 
     # Only allow a list of trusted parameters through.
@@ -81,5 +86,9 @@ class ListsController < ApplicationController
 
   def trigger_day_param
     timer_params[:trigger_day].to_h.select { |_, v| v == "1" }.map { |k, _| k.to_sym }
+  end
+
+  def set_embed
+    @embed = Embed.find_by!(key: params[:id])
   end
 end

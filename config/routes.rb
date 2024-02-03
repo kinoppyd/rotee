@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :items, only: %i[new create]
   end
 
+  get '/embed/:id', to: 'lists#show'
+
   resources :items, only: %i[show edit update destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
