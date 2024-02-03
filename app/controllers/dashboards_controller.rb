@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
 
   # GET /dashboards/1 or /dashboards/1.json
   def show
+    @dashboard.lists.each(&:tick!)
   end
 
   # GET /dashboards/new
