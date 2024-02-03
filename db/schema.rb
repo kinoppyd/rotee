@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_020900) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_03_135528) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -23,6 +23,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_020900) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "embeds", id: :string, force: :cascade do |t|
+    t.string "list_id", null: false
+    t.string "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_embeds_on_key", unique: true
+    t.index ["list_id"], name: "index_embeds_on_list_id"
   end
 
   create_table "items", id: :string, force: :cascade do |t|
@@ -54,5 +63,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_020900) do
     t.index ["list_id"], name: "index_timers_on_list_id"
   end
 
+  add_foreign_key "embeds", "lists"
   add_foreign_key "timers", "lists"
 end
