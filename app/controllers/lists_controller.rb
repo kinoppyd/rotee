@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_embed, only: :show, if: -> { request.path.start_with?('/embed') }
+  before_action :set_embed, only: :show, if: -> { helpers.embed? }
   before_action :set_list, only: %i[ show edit update destroy ]
   before_action :set_dashboard, only: %i[new create]
 
@@ -90,5 +90,6 @@ class ListsController < ApplicationController
 
   def set_embed
     @embed = Embed.find_by!(key: params[:id])
+    response.headers.delete('X-Frame-Options')
   end
 end

@@ -6,11 +6,15 @@ module ListsHelper
 
   # Turbo frame tag for items in list
   def list_items_id(list)
-    "list_items_#{list.id}"
+    embed? ? "" : "list_items_#{list.id}"
   end
 
   # Turbo frame tag for list element wrapper
   def list_wrapper_id(list)
     "list_#{list.id}_wrapper"
+  end
+
+  def embed?
+    request.path.start_with?('/embed')
   end
 end
